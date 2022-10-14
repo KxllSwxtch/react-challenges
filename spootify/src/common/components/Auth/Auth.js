@@ -1,10 +1,21 @@
 import { useEffect } from "react"
 import { authURI } from "../../../api/auth"
 
-const Auth = ({ spotifyToken, setSpotifyToken }) => {
+const Auth = ({
+	spotifyToken,
+	setSpotifyToken,
+	setCategories,
+	setPlaylists,
+	setNewReleases,
+}) => {
 	const logoutSpotify = () => {
 		setSpotifyToken("")
 		localStorage.removeItem("access_token")
+		setCategories([])
+		setPlaylists([])
+		setNewReleases([])
+		window.location.hash = ""
+		window.location.reload()
 	}
 
 	useEffect(() => {

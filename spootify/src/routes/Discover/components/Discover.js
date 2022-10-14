@@ -17,23 +17,31 @@ const Discover = () => {
 	const [categories, setCategories] = useState([])
 
 	useEffect(() => {
-		const getData = async () => {
-			const newReleases = await getNewReleases(spotifyToken)
-			setNewReleases(newReleases)
+		if (spotifyToken) {
+			const getData = async () => {
+				const newReleases = await getNewReleases(spotifyToken)
+				setNewReleases(newReleases)
 
-			const featuredPlaylists = await getFeaturedPlaylists(spotifyToken)
-			setPlaylists(featuredPlaylists)
+				const featuredPlaylists = await getFeaturedPlaylists(spotifyToken)
+				setPlaylists(featuredPlaylists)
 
-			const browseCategories = await getCategories(spotifyToken)
-			setCategories(browseCategories)
+				const browseCategories = await getCategories(spotifyToken)
+				setCategories(browseCategories)
+			}
+
+			getData()
 		}
-
-		getData()
 	}, [spotifyToken])
 
 	return (
 		<div className="discover">
-			<Auth spotifyToken={spotifyToken} setSpotifyToken={setSpotifyToken} />
+			<Auth
+				spotifyToken={spotifyToken}
+				setSpotifyToken={setSpotifyToken}
+				setNewReleases={setNewReleases}
+				setCategories={setCategories}
+				setPlaylists={setPlaylists}
+			/>
 			<DiscoverBlock
 				text="RELEASED THIS WEEK"
 				id="released"
